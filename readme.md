@@ -1,5 +1,7 @@
 # Bilibili Bangumi Downloader
 
+[中文版本](https://github.com/yaoxi-std/bilibili-bangumi-downloader/blob/main/readme.zh.md)
+
 This is a python3 script which allows you to download a series of bangumi.
 
 ## How to use?

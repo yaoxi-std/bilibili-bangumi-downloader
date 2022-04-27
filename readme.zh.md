@@ -1,5 +1,7 @@
 # Bilibili 番剧下载器
 
+[English Version](https://github.com/yaoxi-std/bilibili-bangumi-downloader/blob/main/readme.md)
+
 这是一个用 python3 实现的小脚本，用于一键从b站上下载一整部番剧。
 
 ## 使用方法
