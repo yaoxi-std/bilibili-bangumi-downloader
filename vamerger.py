@@ -11,4 +11,4 @@ class VAMerger:
         cmd = 'ffmpeg -i \"{}\" -i \"{}\" -c:v copy -c:a aac -strict experimental \"{}\"'.format(
             self.video, self.audio, self.output)
         print(cmd)
-        os.system(cmd)
+        return os.system(cmd) == 0

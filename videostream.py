@@ -11,12 +11,18 @@ def convert_cookie_to_dict(cookie):
     return cookies
 
 
+def check_result_code(result):
+    if result["code"] != 0:
+        print(result)
+        exit(256)
+
+
 def get_bangumi_info(media_id):
     params = {"media_id": media_id}
     response = requests.get(
         "http://api.bilibili.com/pgc/review/user", params=params)
     result = json.loads(response.content)
-    assert(result["code"] == 0)
+    check_result_code(result)
     return result["result"]["media"]
 
 
@@ -25,7 +31,7 @@ def get_detailed_bangumi_info_from_season_id(season_id):
     response = requests.get(
         "http://api.bilibili.com/pgc/view/web/season", params=params)
     result = json.loads(response.content)
-    assert(result["code"] == 0)
+    check_result_code(result)
     return result["result"]
 
 
@@ -34,7 +40,7 @@ def get_detailed_bangumi_info_from_ep_id(ep_id):
     response = requests.get(
         "http://api.bilibili.com/pgc/view/web/season", params=params)
     result = json.loads(response.content)
-    assert(result["code"] == 0)
+    check_result_code(result)
     return result["result"]
 
 
@@ -73,7 +79,7 @@ def get_bangumi_download_info(cookie, aid, cid):
     response = requests.get(
         "http://api.bilibili.com/pgc/player/web/playurl", headers=header, params=params, cookies=cookie)
     result = json.loads(response.content)
-    assert(result["code"] == 0)
+    check_result_code(result)
     return result["result"]
 
 
@@ -87,7 +93,8 @@ def get_bangumi_downloads(cookie, aid, cid):
 def download_bangumi(url, dest, num=64):
     header = {'referer': 'https://www.bilibili.com',
               'User-Agent': 'Mozilla/5.0 BiliDroid/*.*.* (bbcallen@gmail.com)'}
-    Downloader(url, num, dest, header=header).run()
+    if not Downloader(url, num, dest, header=header).run():
+        print('\x1b[031mDownload failed: {} -> {}\x1b[0m'.format(url, dest))
 
 
 def download_all_from_info(cookie, info, destdir, doclean=False):
