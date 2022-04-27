@@ -18,10 +18,11 @@ if __name__ == '__main__':
     video_url = input('Video URL: ')
     record_url = input('Download to: ')
     record_url = os.path.abspath(os.path.expanduser(record_url))
-    doclean = input('Clean .flv/.ogg in download directory? [Y/n] (default n): ')
-    
+    doclean = input(
+        'Clean .flv/.ogg in download directory? [Y/n] (default n): ')
+
     print('Download from {} to {}'.format(video_url, record_url))
-    
+
     # Download
     info = vs.get_detailed_info_from_url(video_url)
     vs.download_all_from_info(cookie, info, record_url, doclean == "Y")
