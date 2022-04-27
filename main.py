@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
 import os
+import sys
 import videostream as vs
 
 if __name__ == '__main__':
     # Cookie
     cookie = ""
     try:
-        with open("cookie.txt", "r") as f:
+        file = os.path.join(sys.argv[0], "../cookie.txt")
+        file = os.path.abspath(file)
+        with open(file, "r") as f:
             cookie = f.read()
     except FileNotFoundError:
         print("cookie.txt not found. Paste your cookie in cookie.txt")
