@@ -4,7 +4,9 @@ import sys
 
 axel_path = os.path.abspath(os.path.join(sys.argv[0], "../axel"))
 if not os.path.exists(axel_path):
-    axel_path = "axel"
+    axel_path += ".exe"
+    if not os.path.exists(axel_path):
+        axel_path = "axel"
 
 
 class Downloader:

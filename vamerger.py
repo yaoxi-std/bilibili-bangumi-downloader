@@ -4,7 +4,9 @@ import sys
 
 ffmpeg_path = os.path.abspath(os.path.join(sys.argv[0], "../ffmpeg"))
 if not os.path.exists(ffmpeg_path):
-    ffmpeg_path = "ffmpeg"
+    ffmpeg_path += ".exe"
+    if not os.path.exists(ffmpeg_path):
+        ffmpeg_path = "ffmpeg"
 
 
 class VAMerger:
