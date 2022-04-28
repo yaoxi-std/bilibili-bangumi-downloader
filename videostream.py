@@ -91,9 +91,9 @@ def get_bangumi_downloads(cookie, aid, cid):
     return ([audios[0]["base_url"]], [videos[0]["base_url"]])
 
 
-def download_bangumi(url, dest, num=64):
-    header = {'referer': 'https://www.bilibili.com',
-              'User-Agent': 'Mozilla/5.0 BiliDroid/*.*.* (bbcallen@gmail.com)'}
+def download_bangumi(url, dest, num=64, refurl=""):
+    header = {'referer': refurl,
+              'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36'}
     if not Downloader(url, num, dest, header=header).run():
         print('\x1b[031mDownload failed: {} -> {}\x1b[0m'.format(url, dest))
 
@@ -105,15 +105,18 @@ def download_all_from_info(cookie, info, destdir, doclean=False):
     for ep in episodes:
         aid = ep["aid"]
         cid = ep["cid"]
+        refurl = ep["share_url"]
         print('aid={}, cid={}'.format(aid, cid))
         aurls, vurls = get_bangumi_downloads(cookie, aid, cid)
         assert(len(aurls) == len(vurls))
         for url in aurls:
             counta += 1
-            download_bangumi(url, os.path.join(destdir, str(counta) + ".ogg"))
+            download_bangumi(url, os.path.join(
+                destdir, str(counta) + ".ogg"), refurl=refurl)
         for url in vurls:
             countv += 1
-            download_bangumi(url, os.path.join(destdir, str(countv) + ".flv"))
+            download_bangumi(url, os.path.join(
+                destdir, str(countv) + ".flv"), refurl=refurl)
     for i in range(1, counta + 1):
         apath = os.path.join(destdir, str(i) + ".ogg")
         vpath = os.path.join(destdir, str(i) + ".flv")
