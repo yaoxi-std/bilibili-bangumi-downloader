@@ -1,4 +1,10 @@
 import os
+import sys
+
+
+ffmpeg_path = os.path.abspath(os.path.join(sys.argv[0], "../ffmpeg"))
+if not os.path.exists(ffmpeg_path):
+    ffmpeg_path = "ffmpeg"
 
 
 class VAMerger:
@@ -8,7 +14,7 @@ class VAMerger:
         self.output = output
 
     def run(self):
-        cmd = 'ffmpeg -i \"{}\" -i \"{}\" -c:v copy -c:a aac -strict experimental \"{}\"'.format(
-            self.video, self.audio, self.output)
+        cmd = '{} -i \"{}\" -i \"{}\" -c:v copy -c:a aac -strict experimental \"{}\"'.format(
+            ffmpeg_path, self.video, self.audio, self.output)
         print(cmd)
         return os.system(cmd) == 0

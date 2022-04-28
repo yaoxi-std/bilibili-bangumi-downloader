@@ -1,4 +1,10 @@
 import os
+import sys
+
+
+axel_path = os.path.abspath(os.path.join(sys.argv[0], "../axel"))
+if not os.path.exists(axel_path):
+    axel_path = "axel"
 
 
 class Downloader:
@@ -12,8 +18,8 @@ class Downloader:
             self.header += "-H \"{}: {}\" ".format(key, value)
 
     def run(self):
-        cmd = 'axel -n {} -o \"{}\" {} \"{}\"'.format(
-            self.num, self.dest, self.header, self.url)
+        cmd = '{} -n {} -o \"{}\" {} \"{}\"'.format(
+            axel_path, self.num, self.dest, self.header, self.url)
         print(cmd)
         for i in range(self.max_retry):
             if os.system(cmd) == 0:
