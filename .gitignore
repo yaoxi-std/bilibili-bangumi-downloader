@@ -1,2 +1,5 @@
 __pycache__
 cookie.txt
+build
+dist
+*.spec

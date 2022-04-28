@@ -1,9 +1,10 @@
-import json
 import os
 import re
+import sys
+import json
 import requests
-from downloader import Downloader
 from vamerger import VAMerger
+from downloader import Downloader
 
 
 def convert_cookie_to_dict(cookie):
@@ -14,7 +15,7 @@ def convert_cookie_to_dict(cookie):
 def check_result_code(result):
     if result["code"] != 0:
         print(result)
-        exit(256)
+        sys.exit(256)
 
 
 def get_bangumi_info(media_id):

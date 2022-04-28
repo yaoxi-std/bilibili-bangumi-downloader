@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import os
 import sys
 import videostream as vs
@@ -14,7 +12,7 @@ if __name__ == '__main__':
             cookie = f.read()
     except FileNotFoundError:
         print("cookie.txt not found. Paste your cookie in cookie.txt")
-        exit(256)
+        sys.exit(256)
     cookie = vs.convert_cookie_to_dict(cookie)
 
     # Input
